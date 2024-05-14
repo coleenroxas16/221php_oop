@@ -46,6 +46,7 @@ if (isset($_POST['SignUp'])){
   </style>
 </head>
 <body>
+
  
 <div class="container-fluid login-container rounded shadow">
   <h2 class="text-center mb-4">Sign Up</h2>

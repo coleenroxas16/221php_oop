@@ -3,16 +3,23 @@
 require_once('classes/database.php');
  
 $con = new database();
- 
+session_start();
+if (isset ($_SESSION['user_name'])) {
+  header('location: index.php');
+}
+
 if (isset($_POST['login'])){
   $username = $_POST['user_name'];
   $password = $_POST['user_pass'];
   $result = $con->check ($username, $password);
+
+
   if ($result){
-    if($result[$username]==$_POST['username'] && $result
-    ['password']== $_POST['userpass']) {
-      $_SESSION['username'] = $result['username'];
+    if($result['user_name']==$_POST['user_name'] && $result
+    ['user_pass']== $_POST['user_pass']) {
+      $_SESSION['user_name'] = $result['user_name'];
       header('location:index.php');
+     
     } else{
       echo 'error';
     }
@@ -31,7 +38,7 @@ if (isset($_POST['login'])){
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
   <link rel="stylesheet" href="./bootstrap-5.3.3-dist/css/bootstrap.css">
- 
+  <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -45,13 +52,14 @@ if (isset($_POST['login'])){
   </style>
 </head>
 <body>
+
  
 <div class="container-fluid login-container rounded shadow">
   <h2 class="text-center mb-4">Login</h2>
   <form method="post">
     <div class="form-group">
       <label for="username">Username:</label>
-      <input type="text" class="form-control" name="user_name" placeholder="Annyeong. Ano name mo?">
+      <input type="text" class="form-control" name="user_name" placeholder="Ano Pangalan Mo?">
     </div>
     <div class="form-group">
       <label for="password">Password:</label>
@@ -70,3 +78,4 @@ if (isset($_POST['login'])){
 <script src="./bootstrap-5.3.3-dist/js/bootstrap.js"></script>
 </body>
 </html>
+ 
