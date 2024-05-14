@@ -20,7 +20,7 @@ if (isset($_POST['SignUp'])){
         echo 'Username already exists. Please choose a different username.';
     }
   } else {
-      echo 'Password did not match';
+      echo 'Password did not';
   }
 }
  
