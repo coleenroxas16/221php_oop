@@ -1,8 +1,8 @@
 <?php
-// session_start();
-// if (empty($_SESSION['user'])) {
-//     header('location:login.php');
-// }
+ session_start();
+ if (empty($_SESSION['user_name'])) {
+     header('location:login.php');
+}
 require_once('classes/database.php');
 $con = new database();
 $error = "";
