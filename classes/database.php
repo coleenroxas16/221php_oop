@@ -22,23 +22,17 @@ class database{
             return false;
         }
    
-        return $con->prepare("INSERT INTO users (firstname, lastname, birthday, sex, user_name, user_pass) VALUES (?, ?, ?, ?, ?, ?)")
+        return $con->prepare("INSERT INTO users (firstname, lastname, birthday, sex, user_name, user_pass,  user_profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?)")
        ->execute([$firstname, $lastname, $birthday, $sex, $username, $password]);
     }
-    function signupUser($firstname, $lastname, $birthday, $sex, $name, $pass) {
+    function signupUser($firstname, $lastname, $birthday, $sex, $email, $username, $password, $profilePicture)
+    {
         $con = $this->opencon();
-        $query = $con->prepare("SELECT user_name FROM users WHERE user_name = ?");
-        $query->execute([$name]);
-        $existingUser = $query->fetch();
-   
-        if ($existingUser) {
-            return false;
-        }
-   
-        $con->prepare("INSERT INTO users (firstname, lastname, birthday, sex, user_name, user_pass) VALUES (?, ?, ?, ?, ?, ?)")->execute([$firstname, $lastname, $birthday, $sex, $name, $pass]);
+        // Save user data along with profile picture path to the database
+        $con->prepare("INSERT INTO users (firstname, lastname, birthday, sex, email, user_name, user_pass, user_profile_picture) VALUES (?,?,?,?,?,?,?,?)")->execute([$firstname, $lastname, $birthday, $sex, $email, $username, $password, $profilePicture]);
         return $con->lastInsertId();
-    }
-   
+        }
+    
 function insertAddress($user_id, $street, $barangay, $city, $province) {
     $con = $this->opencon();
  
@@ -47,7 +41,7 @@ function insertAddress($user_id, $street, $barangay, $city, $province) {
  
 function view(){
     $con = $this->opencon();
-    return $con-> query("SELECT users.user_id, users.firstname, users.lastname, users.birthday, users.sex, users.user_name, CONCAT(user_address.user_street,' ',user_address.user_barangay,' ', user_address.user_city, ' ', user_address.user_province) AS Address FROM users INNER JOIN user_address ON users.user_id=user_address.user_id;")
+    return $con-> query("SELECT users.user_id, users.firstname, users.lastname, users.birthday, users.sex, users.user_name, user_profile_picture, CONCAT(user_address.user_street,' ',user_address.user_barangay,' ', user_address.user_city, ' ', user_address.user_province) AS Address FROM users INNER JOIN user_address ON users.user_id=user_address.user_id;")
     ->fetchAll();
 }
 function delete($user_id){
@@ -77,6 +71,7 @@ function delete($user_id){
         users.birthday,
         users.user_name,
         users.user_pass,
+        users.user_profile_picture,
         user_address.user_street,user_address.user_barangay,user_address.user_city,user_address.user_province
     FROM
         users

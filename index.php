@@ -35,13 +35,14 @@ if (empty($_SESSION['user_name'])) {
 <body>
  <?php include('includes/navbar.php'); ?>
 
-<div class="container user-info rounded shadow p-3 my-2">
+ <div class="container user-info rounded shadow p-3 my-5">
 <h2 class="text-center mb-2">User Table</h2>
   <div class="table-responsive text-center">
     <table class="table table-bordered">
       <thead>
         <tr>
           <th>#</th>
+          <th>Profile</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Birthday</th>
@@ -52,17 +53,21 @@ if (empty($_SESSION['user_name'])) {
         </tr>
       </thead>
       <tbody>
- 
       <?php
       $counter= 1;
       $data = $con->view();
       foreach ($data as $rows){
       ?>
  
- 
- 
         <tr>
           <td> <?php echo $counter++;?></td>
+          <td>
+        <?php if (!empty($rows['user_profile_picture'])): ?>
+          <img src="<?php echo htmlspecialchars($rows['user_profile_picture']); ?>" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+        <?php else: ?>
+          <img src="path/to/default/profile/pic.jpg" alt="Default Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+        <?php endif; ?>
+        </td>
           <td><?php echo $rows['firstname']; ?></td>
           <td><?php echo $rows['lastname']; ?></td>
           <td><?php echo $rows['birthday']; ?></td>
