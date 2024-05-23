@@ -50,7 +50,7 @@ if (isset($_POST['login'])) {
   <form method="post">
     <div class="form-group">
       <label for="username">Username:</label>
-      <input type="text" class="form-control" name="user_name" placeholder="Ano Pangalan Mo?">
+      <input type="text" class="form-control" name="user_name" placeholder="Annyeong, ano name mo?">
     </div>
     <div class="form-group">
       <label for="password">Password:</label>
