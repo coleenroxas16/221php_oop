@@ -8,20 +8,32 @@ if (isset ($_SESSION['user_name'])) {
   header('location: index.php');
 }
 
+$error = "";
+
 if (isset($_POST['login'])) {
   $username = $_POST['user_name'];
   $password = $_POST['user_pass'];
   $result = $con->check($username, $password);
  
   if ($result) {
-      $_SESSION['user_name'] = $result['user_name'];
+    $_SESSION['user_name'] = $result['user_name'];
+    $_SESSION['account_type'] = $result['account_type'];
+    $_SESSION['user_id'] = $result['user_id'];
+    $_SESSION['profilepicture'] = $result['user_profile_picture'];
+    // Redirect based on account type
+    if ($result['account_type'] == 0) {
       header('location:index.php');
-  } else {
-      $error = "Incorrect username or password. Please try again.";
-  }
+    } else if ($result['account_type'] == 1) {
+      header('location:user_account.php');
+    }
+    exit();
+} else {
+    $error = "Incorrect username or password. Please try again.";
 }
- 
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

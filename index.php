@@ -4,10 +4,10 @@ require_once('classes/database.php');
  
 $con = new database();
 session_start();
-if (empty($_SESSION['user_name'])) 
-if (empty($_SESSION['user_name'])) {
-  header('location: login.php');
-}
+// if (isset($_SESSION['user_name']) || $_SESSION['account_type'] !=0) {
+// header('location: login.php');
+// }
+
 
  if(isset($_POST['delete'])) {
     $id = $_POST['id'];

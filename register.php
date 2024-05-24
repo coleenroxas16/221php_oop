@@ -37,7 +37,7 @@ if (isset($_POST['multisave'])) {
      $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
      $uploadOk = 1;
     
-    // Check if file already exists and rename if necessary
+
   // Check if file already exists and rename if necessary
   if (file_exists($target_file)) {
     // Generate a unique file name by appending a timestamp
@@ -305,7 +305,7 @@ $(document).ready(function(){
 
 </script>
 
-<!--Live Checking for username-->
+<!--AJAX for live checking of existing emails-->
 <script>
 $(document).ready(function(){
     $('#email').on('input', function(){
