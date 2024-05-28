@@ -148,9 +148,25 @@ function validateCurrentPassword($userId, $currentPassword) {
     // If no user is found or password is incorrect, return false
     return false;
 }
-function updatePassword($userId, $hashedPassword) {
+function updatePassword($user_id, $hashedPassword) {
     $con = $this->opencon();
     $query = $con->prepare("UPDATE users SET user_pass = ? WHERE user_id = ?");
-    return $query->execute([$hashedPassword, $userId]);
+    return $query->execute([$hashedPassword, $user_id]);
 }
+
+ function updateUserProfilePicture($user_id, $profilePicturePath) {
+try {
+    $con = $this->opencon();
+    $con->beginTransaction();
+    $query = $con->prepare("UPDATE users SET user_profile_picture = ? WHERE user_id = ?");
+    $query->execute([$profilePicturePath, $user_id]);
+    // Update successful
+    $con->commit();
+    return true;
+} catch (PDOException $e) {
+    // Handle the exception (e.g., log error, return false, etc.)
+     $con->rollBack();
+    return false; // Update failed
+}
+ }
 }
