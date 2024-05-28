@@ -98,6 +98,7 @@ if (isset($_POST['updateaddress'])) {
   <!-- For Pop Up Notification -->
   <link rel="stylesheet" href="./package/dist/sweetalert2.css">
  
+ 
   <style>
     .profile-header {
       text-align: center;
@@ -484,7 +485,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     $('#fileSizeError').hide();
                     $('#uploadProfilePicForm').data('valid', true);
                 }
-
+ 
                 // Preview the image
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -494,7 +495,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 reader.readAsDataURL(file);
             }
         });
-
+ 
         $('#uploadProfilePicForm').submit(function(event) {
             event.preventDefault();
             if (!$(this).data('valid')) {
@@ -505,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 return;
             }
-
+ 
             const formData = new FormData(this);
             $.ajax({
                 url: 'upload_profile_picture.php', // Change this to your PHP file
@@ -591,3 +592,4 @@ document.addEventListener('DOMContentLoaded', function() {
  
 </body>
 </html>
+ 
